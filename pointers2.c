@@ -17,8 +17,23 @@
  */
 
 char* stringcat(char* str1, char* str2) {
-    // TODO: Implement this function.
-    return NULL;
+    char *str3 = malloc(strlen(str1) + strlen(str2) + 1);
+    if (str3 == NULL){
+        return NULL;
+    }
+    int i = 0;
+    while (*str1 != '\0'){
+        str3[i] = *str1;
+        str1++;
+        i++;
+    }
+    while (*str2 != '\0'){
+        str3[i] = *str2;
+        str2++;
+        i++;
+    }
+    str3[i] = '\0';
+    return str3;
 }
 
 /**
@@ -30,9 +45,11 @@ void test_stringcat(CuTest *tc) {
 
     output = stringcat("compsci", "210");
     CuAssertStrEquals(tc, "compsci210", output);
+    free(output);
 
     output = stringcat("The weather in Durham is...", "hot and humid in the summer!");
     CuAssertStrEquals(tc, "The weather in Durham is...hot and humid in the summer!", output);
+    free(output);
 }
 
 /**
@@ -81,8 +98,15 @@ void free_list(struct ll_node* head) {
  */
 
 int sum_linked_list(struct ll_node* head) {
-    // TODO: Implement this function.
-    return 2;
+    int sum = 0;
+    if (head == NULL){
+        return 0;
+    }
+    while (head != NULL){
+        sum += head->val;
+        head = head->next;
+    }
+    return sum;
 }
 
 void test_sum_linked_list(CuTest *tc) {
@@ -121,9 +145,19 @@ void test_sum_linked_list(CuTest *tc) {
  */
 
 int linked_list_equality(struct ll_node* head1, struct ll_node* head2) {
-    // TODO: Implement the function
-    return 2;
+    if (sum_linked_list(head1) != sum_linked_list(head2)) {
+        return 0;
+    }
+    if (head1 == head2) {
+        return 3;
+    }
+    if (head1->next == head2->next) {
+        return 2;
+    }
+    return 1;
 }
+
+
 
 void test_linked_list_equality(CuTest *tc) {
 
